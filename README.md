@@ -1,6 +1,6 @@
 # Actividad 4.7.6: Sistemas Embebidos 🚀
 
-Este proyecto contiene el desarrollo de la actividad **4.7.6**, enfocada en la implementación de soluciones sobre hardware especializado utilizando estándares de nivel industrial.
+Este proyecto contiene el desarrollo de la actividad **4.7.6**
 
 ---
 
