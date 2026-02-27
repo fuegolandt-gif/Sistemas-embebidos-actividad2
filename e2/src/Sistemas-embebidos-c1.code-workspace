@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "../../../../../Desktop/Sistemas-embebidos-c1"
+		},
+		{
+			"name": "e1",
+			"path": "../../e1"
+		},
+		{
+			"name": "e2",
+			"path": ".."
+		}
+	],
+	"settings": {}
+}
