@@ -5,9 +5,8 @@
 #include <string.h>
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
-#include "driver/uart.h" // Librería fundamental para usar el UART directamente
-
-#define PUERTO_UART UART_NUM_0 // Usamos el UART0 (el predeterminado para el cable USB)
+#include "driver/uart.h" // 
+#define PUERTO_UART UART_NUM_0 
 #define TAMANO_BUFFER 1024
 
 // Función matemática (sin cambios)
@@ -33,22 +32,16 @@ void inicializar_uart() {
         .source_clk = UART_SCLK_DEFAULT,
     };
 
-    // 1. Instalamos el driver en el puerto 0
     uart_driver_install(PUERTO_UART, TAMANO_BUFFER * 2, 0, 0, NULL, 0);
-    // 2. Aplicamos la configuración de velocidad y bits
     uart_param_config(PUERTO_UART, &configuracion_uart);
-    // 3. Asignamos los pines (UART_PIN_NO_CHANGE usa los pines TX/RX por defecto de la placa)
     uart_set_pin(PUERTO_UART, UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE);
 }
 
 void app_main() {
-    // Inicializamos nuestro hardware UART primero
     inicializar_uart();
     vTaskDelay(pdMS_TO_TICKS(2000)); 
 
-    // Para enviar texto por UART, primero lo guardamos en una variable
     const char* mensaje_bienvenida = "\n=========================================\n  Calculadora    \n=========================================\n";
-    // Y luego lo transmitimos indicando la longitud del texto
     uart_write_bytes(PUERTO_UART, mensaje_bienvenida, strlen(mensaje_bienvenida));
 
     while (1) {
@@ -77,7 +70,6 @@ void app_main() {
                 } 
                 else if (caracter_recibido >= '0' && caracter_recibido <= '9') {
                     if (indice < 4) {
-                        // Hacemos el "eco" devolviendo el mismo byte por el TX del UART
                         uart_write_bytes(PUERTO_UART, (const char*)&caracter_recibido, 1); 
                         buffer[indice] = (char)caracter_recibido;
                         indice++;
