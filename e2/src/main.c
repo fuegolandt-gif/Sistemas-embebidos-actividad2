@@ -24,9 +24,7 @@ void inicializar_uart() {
     uart_set_pin(PUERTO_UART, UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE, UART_PIN_NO_CHANGE);
 }
 
-/* * Función que valida estrictamente la trama y extrae el valor.
- * Retorna 1 si es perfectamente válida, o 0 si debe ser ignorada.
- */
+
 int validar_y_extraer_caudal(const char* trama, int* valor_salida) {
     const char* formato_esperado = "{'caudal': ";
     int longitud_formato = 11; // Cantidad de caracteres del prefijo
@@ -79,7 +77,6 @@ int validar_y_extraer_caudal(const char* trama, int* valor_salida) {
 void app_main() {
     inicializar_uart();
 
-    // Variables de estado persistentes durante toda la ejecución
     int mayor = -1;
     int menor = -1; // Iniciamos en -1 para indicar que están vacíos al principio
     long suma_total = 0;
@@ -126,10 +123,7 @@ void app_main() {
                         // Enviamos la respuesta por el UART
                         uart_write_bytes(PUERTO_UART, respuesta, strlen(respuesta));
                     }
-                    // Si la función de validación devolvió 0 (falso), el programa simplemente 
-                    // ignora el bloque if, no calcula nada, no imprime nada, y sigue adelante.
-
-                    // Limpiamos el índice para recibir la próxima ráfaga del caudalímetro
+                    
                     indice = 0; 
                 }
             } else {
